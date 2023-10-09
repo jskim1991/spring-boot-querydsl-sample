@@ -18,31 +18,31 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "members")
-public class Member {
+@Table(name = "milestones")
+public class Milestone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private LocalDateTime since;
+    private LocalDateTime celebratedAt;
 
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Member(String name) {
+    public Milestone(String name) {
         this.name = name;
-        this.since = LocalDateTime.now();
+        this.celebratedAt = LocalDateTime.now();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return Objects.equals(id, member.id);
+        Milestone milestone = (Milestone) o;
+        return Objects.equals(id, milestone.id);
     }
 
     @Override
