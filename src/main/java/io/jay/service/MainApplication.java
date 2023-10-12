@@ -114,7 +114,15 @@ class DashboardController {
     }
 
     @GetMapping("/v2/dashboard")
-    public Page<TeamResponse> dashboard2(Pageable pageable) {
+    public List<TeamResponse> dashboard2() {
+        List<Team> all = teamRepository.findAll();
+        return all.stream()
+                .map(team -> new TeamResponse(team.getId(), team.getName(), team.getMembers().size(), team.getMilestones().size()))
+                .toList();
+    }
+
+    @GetMapping("/v3/dashboard")
+    public Page<TeamResponse> dashboard3(Pageable pageable) {
         Page<Team> all = teamRepository.findAll(pageable);
         var content = all.stream()
                 .map(team -> new TeamResponse(team.getId(), team.getName(), team.getMembers().size(), team.getMilestones().size()))

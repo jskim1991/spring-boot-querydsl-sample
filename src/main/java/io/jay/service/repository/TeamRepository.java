@@ -14,9 +14,13 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
             select distinct t
                 from Team t
                 left join fetch t.members
-                left join fetch t.milestones
             """)
     List<Team> findAllUsingJoinFetch();
+
+    @EntityGraph(attributePaths = {
+            "members", "milestones"
+    })
+    List<Team> findAll();
 
     @EntityGraph(attributePaths = {
             "members", "milestones"

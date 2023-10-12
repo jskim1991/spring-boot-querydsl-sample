@@ -42,11 +42,11 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(id, member.id);
+        return Objects.equals(id, member.id) && Objects.equals(name, member.name) && Objects.equals(since, member.since);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, since);
     }
 }

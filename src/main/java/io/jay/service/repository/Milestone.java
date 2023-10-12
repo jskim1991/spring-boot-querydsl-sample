@@ -42,11 +42,11 @@ public class Milestone {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Milestone milestone = (Milestone) o;
-        return Objects.equals(id, milestone.id);
+        return Objects.equals(id, milestone.id) && Objects.equals(name, milestone.name) && Objects.equals(celebratedAt, milestone.celebratedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, celebratedAt);
     }
 }
