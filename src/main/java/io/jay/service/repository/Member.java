@@ -7,16 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Table(name = "members")
 public class Member {
@@ -30,23 +28,11 @@ public class Member {
 
     @ManyToOne
     @JoinColumn(name = "team_id")
+    @EqualsAndHashCode.Exclude
     private Team team;
 
     public Member(String name) {
         this.name = name;
         this.since = LocalDateTime.now();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return Objects.equals(id, member.id) && Objects.equals(name, member.name) && Objects.equals(since, member.since);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, since);
     }
 }

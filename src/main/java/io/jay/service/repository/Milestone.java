@@ -7,16 +7,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Table(name = "milestones")
 public class Milestone {
@@ -30,23 +28,11 @@ public class Milestone {
 
     @ManyToOne
     @JoinColumn(name = "team_id")
+    @EqualsAndHashCode.Exclude
     private Team team;
 
     public Milestone(String name) {
         this.name = name;
         this.celebratedAt = LocalDateTime.now();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Milestone milestone = (Milestone) o;
-        return Objects.equals(id, milestone.id) && Objects.equals(name, milestone.name) && Objects.equals(celebratedAt, milestone.celebratedAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, celebratedAt);
     }
 }
